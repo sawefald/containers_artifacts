@@ -38,16 +38,3 @@ spec:
   - port: 80
   selector:
     app: userprofile-app
-
-
-
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: userprofile
-spec:
-  ttlSecondsAfterFinished: 100
-  template:
-    spec:
-      containers:
-      restartPolicy: Never
