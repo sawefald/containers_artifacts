@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile-app
+spec:
+  selector:
+    matchLabels:
+      app: userprofile-app
+  template:
+    metadata:
+      labels:
+        app: userprofile-app
+    spec:        
+      - name: userprofile
+        image: registryysu9847.azurecr.io/tripinsights/userprofile:1.0
+        env:
+        - name: SQL_USER
+          value: "sqladmin"
+        - name: SQL_PASSWORD
+          value: "localtestpw123@"
+        - name: SQL_SERVER
+          value: ""
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: PORT
+          value: "80"
+        ports: 
+        - containerPort: 80
+          name: userprofile
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userprofile-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: userprofile-app
+
+
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: userprofile
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      restartPolicy: Never
