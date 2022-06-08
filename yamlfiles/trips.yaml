@@ -20,11 +20,19 @@ spec:
             cpu: "500m"
         env:
         - name: SQL_USER
-          value: "sqladmin"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+              optional: false 
         - name: SQL_PASSWORD
-          value: "localtestpw123@"
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+              optional: false 
         - name: SQL_SERVER
-          value: ""
+          value: "sqlserverysu9847.database.windows.net"
         - name: SQL_DBNAME
           value: "mydrivingDB"
         - name: PORT
