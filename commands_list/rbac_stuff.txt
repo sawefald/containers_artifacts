@@ -1,1 +1,7 @@
 az aks get-credentials --resource-group rg-aks-team-2 --name cluster-aks-team-2 --admin
+
+
+apidev@msftopenhack7013ops.onmicrosoft.com
+Fa&EpLSDZs6
+webdev@msftopenhack7013ops.onmicrosoft.com
+Fa&EpLSDZs6
