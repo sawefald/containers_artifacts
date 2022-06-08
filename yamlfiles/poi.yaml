@@ -45,7 +45,7 @@ kind: Service
 metadata:
   name: poi-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
   selector:
