@@ -14,17 +14,21 @@ spec:
       containers:       
       - name: userprofile
         image: registryysu9847.azurecr.io/tripinsights/userprofile:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         env:
         - name: SQL_USER
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
+              name: mssql-secret
               key: username
               optional: false 
         - name: SQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
+              name: mssql-secret
               key: password
               optional: false 
         - name: SQL_SERVER
