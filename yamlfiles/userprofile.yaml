@@ -10,7 +10,8 @@ spec:
     metadata:
       labels:
         app: userprofile-app
-    spec:        
+    spec: 
+      containers:       
       - name: userprofile
         image: registryysu9847.azurecr.io/tripinsights/userprofile:1.0
         env:
