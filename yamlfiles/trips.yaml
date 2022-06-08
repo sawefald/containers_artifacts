@@ -22,13 +22,13 @@ spec:
         - name: SQL_USER
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
+              name: mssql-secret
               key: username
               optional: false 
         - name: SQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
+              name: mssql-secret
               key: password
               optional: false 
         - name: SQL_SERVER
