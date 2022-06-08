@@ -14,10 +14,6 @@ spec:
       containers:
       - name: tripviewer
         image: registryysu9847.azurecr.io/tripinsights/tripviewer:1.0
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         env:
         - name: USER_PROFILE_ENDPOINT
           value: http://userprofile-service.default.svc.cluster.local:80
