@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dan-test
+spec:
+  containers:
+  - name: dan
+    image: registryysu9847.azurecr.io/tripinsights/trips:1.0
+    ports:
+    - containerPort: 80
