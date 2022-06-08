@@ -16,5 +16,7 @@ az aks update -n cluster-vpn-aks-team-2 -g rg-aks-team-2 --attach-acr registryys
 kubectl  create namespace web-ns
 kubectl  create namespace api-ns
 
+--Apply the SECRET.txt command here--
+
 kubectl apply -f ./yamlfiles
 
