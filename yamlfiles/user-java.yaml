@@ -13,11 +13,7 @@ spec:
     spec:        
       containers:
       - name: user-java
-        image: registryysu9847.azurecr.io/tripinsights/user-java:1.0
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: registryysu9847.azurecr.io/tripinsights/user-java:1.0      
         env:
         - name: SQL_USER
           valueFrom:
