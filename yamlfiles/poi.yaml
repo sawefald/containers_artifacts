@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-app
+spec:
+  selector:
+    matchLabels:
+      app: poi-app
+  template:
+    metadata:
+      labels:
+        app: poi-app
+    spec:        
+      containers:
+      - name: poi
+        image: registryysu9847.azurecr.io/tripinsights/poi:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        - name: SQL_USER
+          value: "sqladmin"
+        - name: SQL_PASSWORD
+          value: "localtestpw123@"
+        - name: SQL_SERVER
+          value: ""
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: WEB_PORT
+          value: "80"
+        ports: 
+        - containerPort: 80
+          name: poi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poi-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: poi-app
