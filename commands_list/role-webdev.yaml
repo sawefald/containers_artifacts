@@ -1,0 +1,14 @@
+kind: Role 
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-dev-full-access
+  namespace: web-ns
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs: ["*"]
