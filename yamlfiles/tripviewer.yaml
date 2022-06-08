@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripviewer-app
+spec:
+  selector:
+    matchLabels:
+      app: tripviewer-app
+  template:
+    metadata:
+      labels:
+        app: tripviewer-app
+    spec:        
+      containers:
+      - name: tripviewer
+        image: registryysu9847.azurecr.io/tripinsights/tripviewer:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: USER_PROFILE_ENDPOINT
+          value: "<uri>"
+        - name: TRIPS_API_ENDPOINT
+          value: "<uri>"
+        ports: 
+        - containerPort: 80
+          name: tripviewer
+      restartPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripviewer-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: tripviewer-app

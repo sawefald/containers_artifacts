@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips-app
+spec:
+  selector:
+    matchLabels:
+      app: trips-app
+  template:
+    metadata:
+      labels:
+        app: trips-app
+    spec:        
+      containers:
+      - name: trips
+        image: registryysu9847.azurecr.io/tripinsights/trips:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+        - name: SQL_USER
+          value: "sqladmin"
+        - name: SQL_PASSWORD
+          value: "localtestpw123@"
+        - name: SQL_SERVER
+          value: ""
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: PORT
+          value: "80"
+        ports: 
+        - containerPort: 80
+          name: trips
+      restartPolicy: Never
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: trips-app
