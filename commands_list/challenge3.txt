@@ -1,0 +1,20 @@
+
+az aks create \
+    --resource-group rg-aks-team-2 \
+    --name cluster-vpn-aks-team-2 \
+    --enable-aad --aad-admin-group-object-ids 5624f156-81da-465c-a668-9f5669a3f67d \
+    --enable-azure-rbac \
+    --max-pods 30 \
+    --node-count 2 \
+    --network-plugin azure \
+    --vnet-subnet-id /subscriptions/bf27eb1e-03ee-4d96-9151-2c2ceda1e992/resourceGroups/teamResource/providers/Microsoft.Network/virtualNetworks/vnet/subnets/cl-subnet \
+    --gen-ssh-keys
+
+
+az aks update -n cluster-vpn-aks-team-2 -g rg-aks-team-2 --attach-acr registryysu9847
+
+kubectl  create namespace web-ns
+kubectl  create namespace api-ns
+
+kubectl apply -f ./yamlfiles
+
