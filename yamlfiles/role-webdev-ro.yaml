@@ -1,0 +1,12 @@
+kind: Role 
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-dev-readonly
+  namespace: web-ns
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
