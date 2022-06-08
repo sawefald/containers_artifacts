@@ -13,11 +13,7 @@ spec:
     spec:        
       containers:
       - name: poi
-        image: registryysu9847.azurecr.io/tripinsights/poi:1.0
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: registryysu9847.azurecr.io/tripinsights/poi:1.0        
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
