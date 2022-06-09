@@ -11,23 +11,18 @@ spec:
     metadata:
       labels:
         app: user-java-app
+        aadpodidbinding: user-java-id
     spec:        
       containers:
       - name: user-java
         image: registryysu9847.azurecr.io/tripinsights/user-java:1.0      
-        env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mssql-secret
-              key: username
-              optional: false 
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mssql-secret
-              key: password
-              optional: false 
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/secrets"
+          readOnly: true
+        env:        
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
         - name: SQL_SERVER
           value: "sqlserverysu9847.database.windows.net"
         - name: SQL_DBNAME
@@ -37,6 +32,13 @@ spec:
         ports: 
         - containerPort: 80
           name: user-java
+      volumes:
+        - name: secrets-store01-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname-podid"
 ---
 apiVersion: v1
 kind: Service
