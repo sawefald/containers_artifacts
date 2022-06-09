@@ -1,49 +1,39 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hello-world-ingress
+  name: tripviewer-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-spec:
-  ingressClassName: nginx
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:  
   rules:
-  - http:
+  - host: trip-viewer.41e319f84666443eb918.southcentralus.aksapp.io
+    http:
       paths:
-      - path: /api/poi(/|$)(.*)
+      - path: /api/poi
         pathType: Prefix
         backend:
-          service:
+          service: 
             name: poi-service
-            
-            port:
+            port: 
               number: 80
-      - path: /api/trips(/|$)(.*)
+      - path: /api/trips
         pathType: Prefix
         backend:
-          service:
+          service: 
             name: trips-service
-            port:
+            port: 
               number: 80
-      - path: /(.*)
+      - path: /api/user-java
         pathType: Prefix
         backend:
-          service:
-            name: tripviewer-service
-            port:
-              number: 80
-      - path: /api/user(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: userprofile-service
-            port:
-              number: 80
-      - path: /api/user-java(.*)
-        pathType: Prefix
-        backend:
-          service:
+          service: 
             name: user-java-service
-            port:
+            port: 
+              number: 80
+      - path: /api/user
+        pathType: Prefix
+        backend:
+          service: 
+            name: userprofile-service
+            port: 
               number: 80

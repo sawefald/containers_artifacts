@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:  
   rules:
-  - host: 41e319f84666443eb918.southcentralus.aksapp.io
+  - host: trip-viewer.41e319f84666443eb918.southcentralus.aksapp.io
     http:
       paths:
       - path: /
