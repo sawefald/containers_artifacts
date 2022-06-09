@@ -36,9 +36,9 @@ MC_rg-aks-team-2_cluster-vpn-aks-team-2_southcentralus
 echo $NODES_RESOURCE_ID
 /subscriptions/bf27eb1e-03ee-4d96-9151-2c2ceda1e992/resourceGroups/MC_rg-aks-team-2_cluster-vpn-aks-team-2_southcentralus
 
-$POD_IDENTITY_NAME="my-pod-identity"
-$POD_IDENTITY_NAMESPACE="my-app"
-az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace $POD_IDENTITY_NAMESPACE  --name $POD_IDENTITY_NAME --identity-resource-id $IDENTITY_RESOURCE_ID
+az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace web-ns  --name tripviewer-id --identity-resource-id $IDENTITY_RESOURCE_ID
+az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name poi-id --identity-resource-id $IDENTITY_RESOURCE_ID
+az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name trips-id --identity-resource-id $IDENTITY_RESOURCE_ID
 
 #
 #  Ingress controller
