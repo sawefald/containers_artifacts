@@ -19,7 +19,7 @@ spec:
         image: registryysu9847.azurecr.io/tripinsights/trips:1.0
         volumeMounts:
         - name: secrets-store01-inline
-          mountPath: "/mnt/secrets-store"
+          mountPath: "/secrets"
           readOnly: true
         env:
         - name: SQL_SERVER
