@@ -1,6 +1,18 @@
 Update cluster with keyvault addon:
 az aks addon enable -n cluster-vpn-aks-team-2 -g rg-aks-team-2 --addon azure-keyvault-secrets-provider
 
+Add keyvault:
+az keyvault create -n kv-aks-team-2 -g rg-aks-team-2
+
+Add secret:
+az keyvault secret set --vault-name kv-aks-team-2 -n SQLPWD --value wL5ds8Fu9
+
+Enable pod identity:
+az feature register --name EnablePodIdentityPreview --namespace Microsoft.ContainerService
+az extension add --name aks-preview
+az extension update --name aks-preview
+az aks update -g $rg -n $cluster --enable-pod-identity
+az aks update -g $rg -n $cluster --enable-pod-identity --enable-pod-identity-with-kubenet
 
 #
 #  Ingress controller
