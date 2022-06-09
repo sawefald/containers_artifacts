@@ -4,7 +4,6 @@ metadata:
   name: trips-app
   namespace: api-ns
   labels:
-    aadpodidbinding: trips-id
 spec:
   selector:
     matchLabels:
@@ -13,6 +12,7 @@ spec:
     metadata:
       labels:
         app: trips-app
+        aadpodidbinding: trips-id
     spec:        
       containers:
       - name: trips
@@ -22,18 +22,6 @@ spec:
           mountPath: "/mnt/secrets-store"
           readOnly: true
         env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: secrets-store01-inline
-              key: SQLUSR
-              optional: false 
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: secrets-store01-inline
-              key: SQLPWD
-              optional: false
         - name: SQL_SERVER
           value: "sqlserverysu9847.database.windows.net"
         - name: SQL_DBNAME
