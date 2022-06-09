@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: trips-app
   namespace: api-ns
+  labels:
+    aadpodidbinding: trips-id
 spec:
   selector:
     matchLabels:
@@ -14,20 +16,24 @@ spec:
     spec:        
       containers:
       - name: trips
-        image: registryysu9847.azurecr.io/tripinsights/trips:1.0        
+        image: registryysu9847.azurecr.io/tripinsights/trips:1.0
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
         env:
         - name: SQL_USER
           valueFrom:
             secretKeyRef:
-              name: mssql-secret
-              key: username
+              name: secrets-store01-inline
+              key: SQLUSR
               optional: false 
         - name: SQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mssql-secret
-              key: password
-              optional: false 
+              name: secrets-store01-inline
+              key: SQLPWD
+              optional: false
         - name: SQL_SERVER
           value: "sqlserverysu9847.database.windows.net"
         - name: SQL_DBNAME
@@ -36,7 +42,14 @@ spec:
           value: "80"
         ports: 
         - containerPort: 80
-          name: trips      
+          name: trips
+      volumes:
+      - name: secrets-store01-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname-podid"
 
 ---
 apiVersion: v1
