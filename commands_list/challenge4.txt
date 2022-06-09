@@ -27,18 +27,11 @@ echo $IDENTITY_CLIENT_ID
 echo $IDENTITY_RESOURCE_ID
 /subscriptions/bf27eb1e-03ee-4d96-9151-2c2ceda1e992/resourcegroups/rg-aks-team-2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identity-aks-team-2
 
-$NODE_GROUP=$(az aks show -g rg-aks-team-2 -n cluster-vpn-aks-team-2 --query nodeResourceGroup -o tsv)
-$NODES_RESOURCE_ID=$(az group show -n $NODE_GROUP -o tsv --query "id")
-az role assignment create --role "Virtual Machine Contributor" --assignee "$IDENTITY_CLIENT_ID" --scope $NODES_RESOURCE_ID
-
-echo $NODE_GROUP
-MC_rg-aks-team-2_cluster-vpn-aks-team-2_southcentralus
-echo $NODES_RESOURCE_ID
-/subscriptions/bf27eb1e-03ee-4d96-9151-2c2ceda1e992/resourceGroups/MC_rg-aks-team-2_cluster-vpn-aks-team-2_southcentralus
-
 az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace web-ns  --name tripviewer-id --identity-resource-id $IDENTITY_RESOURCE_ID
 az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name poi-id --identity-resource-id $IDENTITY_RESOURCE_ID
 az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name trips-id --identity-resource-id $IDENTITY_RESOURCE_ID
+az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name user-java-id --identity-resource-id $IDENTITY_RESOURCE_ID
+az aks pod-identity add --resource-group rg-aks-team-2 --cluster-name cluster-vpn-aks-team-2 --namespace api-ns  --name userprofile-id --identity-resource-id $IDENTITY_RESOURCE_ID
 
 #
 #  Ingress controller
