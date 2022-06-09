@@ -1,1 +1,2 @@
-az aks create -n cluster-vpn-aks-team-2 -g teamResources --enable-addons azure-keyvault-secrets-provider --enable-managed-identity
+Update cluster with keyvault addon:
+az aks addon enable -n cluster-vpn-aks-team-2 -g rg-aks-team-2 --addon azure-keyvault-secrets-provider
