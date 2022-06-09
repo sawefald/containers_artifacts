@@ -11,25 +11,18 @@ spec:
     metadata:
       labels:
         app: poi-app
+        aadpodidbinding: poi-id 
     spec:        
       containers:
       - name: poi
         image: registryysu9847.azurecr.io/tripinsights/poi:1.0        
+        volumeMounts:
+        - name: secrets-store01-inline
+          mountPath: "/secrets"
+          readOnly: true
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mssql-secret
-              key: username
-              optional: false 
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mssql-secret
-              key: password
-              optional: false 
         - name: SQL_SERVER
           value: "sqlserverysu9847.database.windows.net"
         - name: SQL_DBNAME
@@ -39,7 +32,13 @@ spec:
         ports: 
         - containerPort: 80
           name: poi
-
+      volumes:
+        - name: secrets-store01-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname-podid"
 ---
 apiVersion: v1
 kind: Service
